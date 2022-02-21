@@ -1,4 +1,13 @@
 const mysql = require('mysql')
+require('dotenv').config()
+
+const googleDatabase = {
+  host     : process.env.HOST,
+  user     : process.env.USER,
+  password : process.env.PASSWORD,
+  database : process.env.DATABASE,
+  multipleStatements: true
+}
 
 class Connection {
   constructor() {
@@ -6,10 +15,7 @@ class Connection {
       console.log('creating connection...')
       this.pool = mysql.createPool({
         connectionLimit: 100,
-        host: 'localhost',
-        user: 'root',
-        password: 'password',
-        database: 'admin'
+        ...googleDatabase
       })
 
       return this.pool
